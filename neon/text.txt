@@ -1,0 +1,201 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <random>
+#include <cstdint>
+#include <sstream>
+#include <iomanip>
+
+// === Утилиты печати (для наглядности) ===
+std::string to_hex(const std::string& s) {
+    std::ostringstream oss;
+    oss << std::hex << std::setfill('0');
+    for (unsigned char c : s) oss << std::setw(2) << (int)c;
+    return oss.str();
+}
+
+// === FNV-1a 32-bit для простой контрольной суммы ===
+uint32_t fnv1a32(const std::string& data) {
+    uint32_t h = 2166136261u;
+    for (unsigned char c : data) {
+        h ^= c;
+        h *= 16777619u;
+    }
+    return h;
+}
+
+// === Простой генератор кейстрима на базе xorshift32 ===
+static inline uint32_t xorshift32(uint32_t& s) {
+    s ^= s << 13;
+    s ^= s >> 17;
+    s ^= s << 5;
+    return s;
+}
+
+// Получаем байтовый кейстрим заданной длины из key + salt
+std::string derive_keystream(size_t len, const std::string& key, const std::string& salt) {
+    uint32_t state = fnv1a32(key + "|" + salt); // начальное состояние от key+salt
+    std::string ks;
+    ks.resize(len);
+    for (size_t i = 0; i < len; ++i) {
+        ks[i] = static_cast<char>(xorshift32(state) & 0xFF);
+    }
+    return ks;
+}
+
+// Пишем/читаем 32-битные числа в LE без привязки к платформе
+void put_u32_le(std::string& out, uint32_t v) {
+    out.push_back(static_cast<char>( v        & 0xFF));
+    out.push_back(static_cast<char>((v >> 8)  & 0xFF));
+    out.push_back(static_cast<char>((v >> 16) & 0xFF));
+    out.push_back(static_cast<char>((v >> 24) & 0xFF));
+}
+uint32_t get_u32_le(const std::string& in, size_t pos) {
+    return  (static_cast<uint32_t>(static_cast<unsigned char>(in[pos    ]))      ) |
+           ((static_cast<uint32_t>(static_cast<unsigned char>(in[pos + 1])) << 8 )) |
+           ((static_cast<uint32_t>(static_cast<unsigned char>(in[pos + 2])) << 16)) |
+           ((static_cast<uint32_t>(static_cast<unsigned char>(in[pos + 3])) << 24));
+}
+
+// === Кодирование (сигнатура + версия + соль + длина + checksum + шифротекст) ===
+std::string encode_myformat(const std::string& plaintext, const std::string& key) {
+    const std::string MAGIC = "MYAPP";
+    const unsigned char VERSION = 1;
+
+    // 1) Генерим соль (8 байт)
+    std::string salt;
+    salt.resize(8);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> dist(0, 255);
+    for (auto& ch : salt) ch = static_cast<char>(dist(gen));
+
+    // 2) Контрольная сумма от открытого текста
+    uint32_t checksum = fnv1a32(plaintext);
+
+    // 3) Шифруем plaintext
+    std::string keystream = derive_keystream(plaintext.size(), key, salt);
+    std::string ciphertext;
+    ciphertext.resize(plaintext.size());
+    for (size_t i = 0; i < plaintext.size(); ++i) {
+        ciphertext[i] = static_cast<char>(static_cast<unsigned char>(plaintext[i]) ^ static_cast<unsigned char>(keystream[i]));
+    }
+
+    // 4) Собираем «файл» в одну строку
+    std::string blob;
+    blob.reserve(MAGIC.size() + 1 + 1 + salt.size() + 4 + 4 + ciphertext.size());
+    blob += MAGIC;                      // 5 байт
+    blob.push_back(static_cast<char>(VERSION)); // 1 байт
+    blob.push_back(static_cast<char>(salt.size())); // 1 байт
+    blob += salt;                       // SALT_LEN байт
+    put_u32_le(blob, static_cast<uint32_t>(plaintext.size())); // 4 байта
+    put_u32_le(blob, checksum);         // 4 байта
+    blob += ciphertext;                 // N байт
+
+    return blob;
+}
+
+// Результат декодирования
+struct DecodeResult {
+    bool ok;
+    std::string data; // если ok, тут plaintext
+    std::string err;  // если !ok, тут причина
+};
+
+// === Декодирование с проверками ===
+DecodeResult decode_myformat(const std::string& blob, const std::string& key) {
+    const std::string MAGIC = "MYAPP";
+    const unsigned char VERSION = 1;
+
+    size_t pos = 0;
+
+    // 1) Проверяем длину на минимально возможную
+    if (blob.size() < MAGIC.size() + 1 + 1 + 4 + 4) {
+        return {false, {}, "Слишком короткие данные"};
+    }
+
+    // 2) MAGIC
+    if (blob.compare(0, MAGIC.size(), MAGIC) != 0) {
+        return {false, {}, "Неверная сигнатура (MAGIC)"};
+    }
+    pos += MAGIC.size();
+
+    // 3) VERSION
+    unsigned char ver = static_cast<unsigned char>(blob[pos++]);
+    if (ver != VERSION) {
+        return {false, {}, "Неподдерживаемая версия формата"};
+    }
+
+    // 4) SALT_LEN и SALT
+    unsigned char salt_len = static_cast<unsigned char>(blob[pos++]);
+    if (blob.size() < pos + salt_len + 8) { // +8 ещё понадобится минимум под длину+чексум
+        return {false, {}, "Повреждённые данные (sALT_LEN выходит за границы)"};
+    }
+    std::string salt = blob.substr(pos, salt_len);
+    pos += salt_len;
+
+    // 5) DATA_LEN
+    if (blob.size() < pos + 4) return {false, {}, "Нет поля DATA_LEN"};
+    uint32_t data_len = get_u32_le(blob, pos);
+    pos += 4;
+
+    // 6) CHECKSUM
+    if (blob.size() < pos + 4) return {false, {}, "Нет поля CHECKSUM"};
+    uint32_t checksum_stored = get_u32_le(blob, pos);
+    pos += 4;
+
+    // 7) CIPHERTEXT
+    if (blob.size() < pos + data_len) {
+        return {false, {}, "Размер шифротекста меньше заявленного DATA_LEN"};
+    }
+    std::string ciphertext = blob.substr(pos, data_len);
+
+    // 8) Расшифровка
+    std::string keystream = derive_keystream(data_len, key, salt);
+    std::string plaintext;
+    plaintext.resize(data_len);
+    for (size_t i = 0; i < data_len; ++i) {
+        plaintext[i] = static_cast<char>(static_cast<unsigned char>(ciphertext[i]) ^ static_cast<unsigned char>(keystream[i]));
+    }
+
+    // 9) Проверка контрольной суммы
+    uint32_t checksum_actual = fnv1a32(plaintext);
+    if (checksum_actual != checksum_stored) {
+        return {false, {}, "Контрольная сумма не совпала (неверный ключ/повреждение данных)"};
+    }
+
+    return {true, plaintext, {}};
+}
+
+int main() {
+    // Твои «исходные» данные и ключ
+    std::string secret = "Привет, мир! Это мои данные.";
+    std::string key    = "mysecretkey"; // поменяй на свой
+
+    // Кодируем в наш формат
+    std::string blob = encode_myformat(secret, key);
+
+    // Показать «сырые» байты в hex (чтобы увидеть «мусор»)
+    std::cout << "RAW (hex): " << to_hex(blob) << "\n";
+
+    // «Как блокнот»: если вывести как текст — там будут кракозябры
+    std::cout << "RAW (as text): " << blob << "\n\n";
+
+    // Пробуем декодировать правильно
+    auto ok = decode_myformat(blob, key);
+    if (ok.ok) {
+        std::cout << "DECODED (ok): " << ok.data << "\n";
+    } else {
+        std::cout << "DECODE ERROR: " << ok.err << "\n";
+    }
+
+    // Пробуем с неверным ключом
+    auto bad = decode_myformat(blob, "wrong-key");
+    if (bad.ok) {
+        std::cout << "DECODED with wrong key (unexpected): " << bad.data << "\n";
+    } else {
+        std::cout << "DECODE with wrong key -> " << bad.err << "\n";
+    }
+
+    return 0;
+}
