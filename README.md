@@ -1,53 +1,160 @@
-<!-- NEON CYBERPUNK THEME -->
-<p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=32&duration=3000&pause=1000&color=00F0FF&center=true&vCenter=true&width=800&lines=SYSTEM++ENGINEER++;FRONT-END++DEVELOPER++;TECHNOMANCER++;NEON++CODER++%7C++UI++ARCHITECT" alt="Typing SVG" />
-</p>
-<!-- Animated Neon Wave -->
-<img src="https://capsule-render.vercel.app/api?type=waving&height=320&section=header&text=☣+SANJAR+OMURBEKOV+☣&fontSize=60&color=0:00FFF7,100:FF00FF&animation=glitch" width="100%"/>
+<!-- 🎯 ARCADE HEADER -->
 
----
+<div align="center">
+  <img src="https://i.ibb.co/Qj1q0YX/arcade-header.png" width="100%" alt="Arcade header"/>
+  <h1>🚀 SANJAR OMURBEKOV</h1>
+  <p>🎯 CLASS: FULL-STACK ADVENTURER</p>
+</div>
 
-## 👾 About Me — *Cyberpunk C++ Style*
+<div align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=28&duration=4000&pause=1000&color=00FF41&center=true&vCenter=true&width=900&lines=LEVEL+25+SYSTEM+WIZARD;QUEST+COMPLETED%3A+42;ACHIEVEMENTS+UNLOCKED%3A+17;RANK%3A+ELITE+CODER" alt="Typing SVG" />
+</div>
 
-```cpp
-#include <neon.h>
-#include <cpp_hacker.h>
-#include <dreams>
+## 🎮 PLAYER STATS
 
-class Sanjar : public CppCyberEngineer, public FrontendNeonArtist {
-public:
-    Sanjar() {
-        startedCoding = 2022;
-        academy = "IT-Run Programming Academy";
-        location = "Bishkek, Kyrgyzstan";
-        passions = {"Modern C++", "System Hacking", "Clean Neon Code"};
-        learning = {"Qt", "STL", "Advanced OOP", "Cybersecurity"};
-        currentProject = "Password Manager";
-        lifeGoal = "Become a Cyberpunk C++ Dev";
-    }
+```javascript
+// 🎲 CHARACTER PROFILE
+const Player = {
+  username: "snjr04",
+  class: "Code Wizard",
+  level: 25,
+  title: "System Architect",
+  faction: "Open Source Guild",
 
-    void hackTheWorld() const {
-        std::cout << "Open for neon collaborations!\n";
-    }
+  // ⚔️ ATTRIBUTES
+  attributes: {
+    strength: 85,    // C++ Mastery
+    agility: 78,     // Frontend Skills
+    intelligence: 92,// Problem Solving
+    charisma: 75,    // Collaboration
+    luck: 88         // Debugging
+  },
+
+  // 🎯 SKILL TREE
+  skills: {
+    programming: ["C++", "C", "Qt", "CMake", "Python"],
+    frontend: ["JavaScript", "React", "HTML", "CSS"],
+    tools: ["Git", "Linux", "VS Code", "Docker"],
+    languages: ["English", "Russian", "Kyrgyz"]
+  },
+
+  // 🏆 CURRENT QUEST
+  currentQuest: {
+    name: "Password Manager Saga",
+    objective: "Build secure vault system",
+    progress: "85%",
+    reward: "+500 XP, Security Badge"
+  }
 };
 
-int main() {
-    Sanjar me;
-    me.hackTheWorld();
-    return 0;
-}
-
+console.log(`🎮 ${Player.username} ready for adventure!`);
 ```
-🛠 Neon Tech Stack
-<p align="center"> <img src="https://skillicons.dev/icons?i=cpp,c,qt,cmake,git,github,linux,vscode,js,react,html,css,nodejs,flutter,figma&perline=9&theme=dark" /> </p> <p align="center"> <img src="https://img.shields.io/badge/C%2B%2B-20-00FFF7?style=for-the-badge&logo=c%2B%2B&logoColor=white" /> <img src="https://img.shields.io/badge/Qt-6-FF00FF?style=for-the-badge&logo=qt&logoColor=white" /> <img src="https://img.shields.io/badge/OOP-Design%20Patterns-00FFDD?style=for-the-badge" /> <img src="https://img.shields.io/badge/React-NeonBlue-00FFFF?style=for-the-badge&logo=react" /> </p>
-🚀 Featured Project — Glowing in Neon
-<p align="center"> <a href="https://github.com/snjr04/PasswordManager"> <img src="https://github-readme-stats.vercel.app/api/pin/?username=snjr04&repo=PasswordManager&theme=radical&bg_color=0:000000,100:0FF0FF" height="160" /> </a> </p>
-📊 GitHub Stats — Hacker Neon Grid
-<div align="center"> <img src="https://github-readme-stats.vercel.app/api?username=snjr04&show_icons=true&theme=radical&bg_color=0:0F0F0F,100:FF00FF" height="180" /> <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=snjr04&layout=compact&theme=radical&bg_color=0:0F0F0F,100:00FFF7" height="180" /> </div> <p align="center"> <img src="https://streak-stats.demolab.com/?user=snjr04&theme=radical&background=0F0F0F&fire=FF00FF&currStreakNum=00FFF7" height="180" alt="GitHub Streak" /> </p>
-🥋 Codewars & Trophies — Cyber Achievements
-<div align="center"> <a href="https://www.codewars.com/users/SanjarOmurbekov"> <img src="https://github.r2v.ch/codewars?user=SanjarOmurbekov&name=true&top_languages=true&theme=dark&animation=true" height="180" /> </a> <a href="https://github.com/snjr04"> <img src="https://github-profile-trophy.vercel.app/?username=snjr04&theme=radical&no-frame=true&row=2&column=4&animation=true" height="180" /> </a> </div>
-🌐 Connect with Me — Neon Links
-<p align="center"> <a href="mailto:superkingbro004@gmail.com"><img src="https://img.shields.io/badge/Gmail-FF00FF?style=for-the-badge&logo=gmail&logoColor=white"/></a> <a href="https://t.me/tehnomaniak07"><img src="https://img.shields.io/badge/Telegram-00FFF7?style=for-the-badge&logo=telegram&logoColor=white"/></a> <a href="https://www.linkedin.com/in/sanjar-omurbekov-7302b32a0/"><img src="https://img.shields.io/badge/LinkedIn-FF00FF?style=for-the-badge&logo=linkedin&logoColor=white"/></a> <a href="https://www.instagram.com/omrbkv04"><img src="https://img.shields.io/badge/Instagram-00FFF7?style=for-the-badge&logo=instagram&logoColor=white"/></a> <a href="https://www.youtube.com/@tehno.maniak"><img src="https://img.shields.io/badge/YouTube-FF00FF?style=for-the-badge&logo=youtube&logoColor=white"/></a> </p>
-🐍 Contribution Snake — Neon Matrix
-<p align="center"> <img src="https://raw.githubusercontent.com/platane/snk/output/github-contribution-grid-snake-dark.svg" /> </p> <!-- Footer Neon --> <img src="https://capsule-render.vercel.app/api?type=waving&height=150&section=footer&color=0:0F0F0F,100:00FFF7&animation=twinkle" width="100%" />
 
+### 🎯 LIVE STATS DASHBOARD
+
+<div align="center">
+  <img src="https://progress-bar.dev/85/?scale=100&title=XP&width=600&color=00FF41" alt="XP Progress" />
+
+  <table>
+    <tr>
+      <td>
+        <img src="https://github-readme-stats.vercel.app/api?username=snjr04&show_icons=true&theme=dark&bg_color=0d1117&title_color=00FF41&text_color=ffffff&icon_color=FF6EC7&border_color=00FF41&hide_border=false&include_all_commits=true" height="180" alt="GitHub Stats"/>
+      </td>
+      <td>
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=snjr04&layout=compact&theme=dark&bg_color=0d1117&title_color=00FF41&text_color=ffffff&border_color=00FF41&hide_border=false" height="180" alt="Top Languages"/>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center">
+        <img src="https://streak-stats.demolab.com/?user=snjr04&theme=dark&background=0d1117&fire=00FF41&ring=FF6EC7&currStreakLabel=00FF41&sideLabels=00FF41&dates=FFFFFF" height="180" alt="Contribution Streak"/>
+      </td>
+    </tr>
+  </table>
+</div>
+
+## 🏆 ACHIEVEMENTS WALL
+
+<div align="center">
+  <img src="https://github-profile-trophy.vercel.app/?username=snjr04&theme=onedark&no-frame=false&row=2&column=4&margin-w=15&margin-h=15" alt="Trophies"/>
+
+  <div>
+    <img src="https://img.shields.io/badge/C%2B%2B-Master-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++ Master"/>
+    <img src="https://img.shields.io/badge/Qt-Expert-41CD52?style=for-the-badge&logo=qt&logoColor=white" alt="Qt Expert"/>
+    <img src="https://img.shields.io/badge/Git-Champion-F05032?style=for-the-badge&logo=git&logoColor=white" alt="Git Champion"/>
+    <img src="https://img.shields.io/badge/Linux-Guru-FCC624?style=for-the-badge&logo=linux&logoColor=black" alt="Linux Guru"/>
+    <br/>
+    <img src="https://img.shields.io/badge/React-Adventurer-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React Adventurer"/>
+    <img src="https://img.shields.io/badge/Code-Wizard-FF6EC7?style=for-the-badge" alt="Code Wizard"/>
+    <img src="https://img.shields.io/badge/Bug-Hunter-00FF41?style=for-the-badge" alt="Bug Hunter"/>
+  </div>
+</div>
+
+## 🎯 ACTIVE QUESTS
+
+<div align="center">
+  <a href="https://github.com/snjr04/PasswordManager">
+    <img src="https://github-readme-stats.vercel.app/api/pin/?username=snjr04&repo=PasswordManager&theme=dark&bg_color=0d1117&title_color=00FF41&text_color=ffffff&icon_color=FF6EC7&border_color=00FF41" height="150" alt="Password Manager Repo"/>
+  </a>
+</div>
+
+## ⚔️ SKILL INVENTORY
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://skillicons.dev/icons?i=cpp,c,qt,cmake&perline=4&theme=dark" alt="System Combat"/>
+        <br/><strong>⚔️ SYSTEM COMBAT</strong>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://skillicons.dev/icons?i=js,react,html,css&perline=4&theme=dark" alt="UI Artistry"/>
+        <br/><strong>🎨 UI ARTISTRY</strong>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="https://skillicons.dev/icons?i=git,github,linux,vscode&perline=4&theme=dark" alt="Tool Mastery"/>
+        <br/><strong>🛠️ TOOL MASTERY</strong>
+      </td>
+    </tr>
+  </table>
+</div>
+
+## 🎮 CODEWARS DOJO
+
+<div align="center">
+  <a href="https://www.codewars.com/users/SanjarOmurbekov">
+    <img src="https://github.r2v.ch/codewars?user=SanjarOmurbekov&name=true&top_languages=true&theme=dark&stroke=00FF41" height="180" alt="Codewars Profile"/>
+  </a>
+</div>
+
+## 🎪 MULTIPLAYER ZONE
+
+<div align="center">
+  <a href="#"><img src="https://img.shields.io/badge/CO--OP_QUEST-Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white&labelColor=0d1117" alt="Email"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/GUILD_CHAT-Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white&labelColor=0d1117" alt="Telegram"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/PRO_NETWORK-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0d1117" alt="LinkedIn"/></a>
+  <br/>
+  <a href="#"><img src="https://img.shields.io/badge/SOCIAL_HUB-Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white&labelColor=0d1117" alt="Instagram"/></a>
+  <a href="#"><img src="https://img.shields.io/badge/STREAM_CHANNEL-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white&labelColor=0d1117" alt="YouTube"/></a>
+</div>
+
+## 🎲 LIVE ACTIVITY
+
+<div align="center">
+  <img src="https://github-readme-activity-graph.vercel.app/graph?username=snjr04&theme=react-dark&bg_color=0d1117&color=00FF41&line=FF6EC7&point=00FFFF&hide_border=false" width="90%" alt="Activity Graph"/>
+</div>
+
+## 🐍 CONTRIBUTION SNAKE
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Platane/snk/output/github-contribution-grid-snake-dark.svg" width="90%" alt="GitHub Contribution Snake"/>
+</div>
+
+<div align="center">
+  <img src="https://komarev.com/ghpvc/?username=snjr04&style=for-the-badge&color=00FF41&label=PLAYER+VISITS" alt="Profile views" />
+  <br/>
+  <sub>🎯 PLAYER READY · 🎮 MISSION: BECOME C++ MASTER · ⚔️ ENEMIES: BUGS & ERRORS</sub>
+</div>
